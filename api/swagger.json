@@ -46,7 +46,7 @@
         },
         "/books/add": {
             "post": {
-                "summmary": "Create a new book",
+                "summary": "Create a new book",
                 "operationId": "createBook",
                 "parameters": [
                     {
