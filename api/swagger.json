@@ -1,0 +1,176 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Books"
+    },
+    "paths": {
+        "/books": {
+            "get": {
+                "summary": "List all books",
+                "operationId": "listBooks",
+                "tags": [
+                    "books"
+                ],
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "How many items to return at one time",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "From which item list should start",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of books",
+                        "schema": {
+                            "$ref": "#/definitions/Books"
+                        }
+                    },
+                    "default": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/books/add": {
+            "post": {
+                "summmary": "Create a new book",
+                "operationId": "createBook",
+                "parameters": [
+                    {
+                        "name": "book",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/BookDTO"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "books"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created book"
+                    },
+                    "default": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/books/delete": {
+            "delete": {
+                "summary": "Delete the book",
+                "operationId": "deleteBook",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DeleteBook"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "books"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Messege about the deleted book"
+                    },
+                    "default": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "BookDTO": {
+            "required": [
+                "title",
+                "author"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "author": {
+                    "type": "string"
+                }
+            }
+        },
+        "DeleteBook": {
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "Book": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "null"
+                }
+            }
+        },
+        "Books": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Book"
+            }
+        },
+        "Error": {
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
